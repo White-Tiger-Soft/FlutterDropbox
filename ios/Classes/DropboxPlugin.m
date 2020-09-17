@@ -49,6 +49,11 @@ FlutterMethodChannel* channel;
     if ([@"getPlatformVersion" isEqualToString:call.method]) {
         result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
     } else if ([@"init" isEqualToString:call.method]) {
+        if ([DBOAuthManager sharedOAuthManager]) {
+          result([NSNumber numberWithBool:TRUE]);
+          return;
+        }
+
 //        NSString *clientId = call.arguments[@"clientId"];
         NSString *key = call.arguments[@"key"];
 //        NSString *secret = call.arguments[@"secret"];
